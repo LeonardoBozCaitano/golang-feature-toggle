@@ -27,20 +27,27 @@ func TestService_Save(t *testing.T) {
 		{
 			name:      "should save",
 			want:      1,
-			toSave:    user.User{Email: "test@test", Password: "123", Type: "USER"},
+			toSave:    user.User{Email: "test@test.com", Password: "Abc123@", Type: "USER"},
 			wantError: false,
 		},
 		{
 			name:         "should not save because email already exists",
-			toSave:       user.User{Email: "test@test", Password: "123", Type: "USER"},
+			toSave:       user.User{Email: "test@test.com", Password: "Abc123@", Type: "USER"},
 			wantError:    true,
 			errorMessage: "User already exists",
 		},
 		{
 			name:      "should another user save",
 			want:      2,
-			toSave:    user.User{Email: "test2@test", Password: "123", Type: "USER"},
+			toSave:    user.User{Email: "test3@test.com", Password: "Abc123@", Type: "USER"},
 			wantError: false,
+		},
+		{
+			name:         "should not save because the weak password",
+			want:         0,
+			toSave:       user.User{Email: "test4@test.com", Password: "weakpass", Type: "USER"},
+			wantError:    true,
+			errorMessage: "the password must have at least one upper and lower case char, one number, and 1 symbol",
 		},
 	}
 	for _, tt := range tests {
