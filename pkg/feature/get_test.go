@@ -1,10 +1,11 @@
-package user_test
+package feature_test
 
 import (
 	"context"
 	"testing"
 
 	"github.com/schedule-api/pkg/docker"
+	"github.com/schedule-api/pkg/feature"
 	"github.com/schedule-api/pkg/server"
 	"github.com/schedule-api/pkg/user"
 	"github.com/stretchr/testify/assert"
@@ -17,8 +18,11 @@ func TestService_GetById(t *testing.T) {
 
 	db, _ := server.NewTestDatabase(pgDb.GetPort())
 
-	s := user.NewService(db)
-	savedUserId, _ := s.Save(context.Background(), user.User{ID: 1, Email: "test@test", Password: "Abc123@", Type: "USER"})
+	userService := user.NewService(db)
+	savedUserId, _ := userService.Save(context.Background(), user.User{ID: 1, Email: "test@test", Password: "Abc123@", Type: "USER"})
+
+	s := feature.NewService(db)
+	savedFeature, _ := s.Save(context.Background(), feature.Feature{Name: "feature-1", Responsible: savedUserId})
 
 	tests := []struct {
 		name    string
@@ -26,8 +30,8 @@ func TestService_GetById(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "should get saved user",
-			id:      savedUserId,
+			name:    "should get saved feature",
+			id:      savedFeature,
 			wantErr: false,
 		},
 		{

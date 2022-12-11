@@ -44,13 +44,11 @@ func extractToken(r *http.Request) string {
 	return ""
 }
 
-/**
 func getUserFromContext(ctx context.Context) *User {
 	return ctx.Value(userInfoKey).(*User)
 }
 
-func getUserIdFromRequest(req *http.Request) int {
+func GetUserIdFromRequest(req *http.Request) int {
 	user := getUserFromContext(req.Context())
 	return user.UserID
 }
-*/
