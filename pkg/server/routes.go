@@ -17,6 +17,9 @@ func (s Server) routes() {
 	authenticatedRouter.HandleFunc("/user/{id:[0-9]+}", handler.HandleUserGetById(s.user)).Methods("GET")
 	authenticatedRouter.HandleFunc("/user", handler.HandleUserSave(s.user)).Methods("POST")
 
+	authenticatedRouter.HandleFunc("/feature/{id:[0-9]+}", handler.HandleFeatureGetById(s.feature)).Methods("GET")
+	authenticatedRouter.HandleFunc("/feature", handler.HandleFeatureSave(s.feature)).Methods("POST")
+
 }
 
 func (s *Server) authenticatedMiddleware(httpHandler http.Handler) http.Handler {
