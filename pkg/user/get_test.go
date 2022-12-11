@@ -18,7 +18,7 @@ func TestService_GetById(t *testing.T) {
 	db, _ := server.NewTestDatabase(pgDb.GetPort())
 
 	s := user.NewService(db)
-	savedUserId, _ := s.Save(context.Background(), user.User{ID: 1, Email: "test@test", Password: "123", Type: "USER"})
+	savedUserId, _ := s.Save(context.Background(), user.User{ID: 1, Email: "test@test", Password: "Abc123@", Type: "USER"})
 
 	tests := []struct {
 		name    string

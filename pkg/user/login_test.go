@@ -19,7 +19,7 @@ func TestService_Login(t *testing.T) {
 	db, _ := server.NewTestDatabase(pgDb.GetPort())
 	s := user.NewService(db)
 
-	userID, _ := s.Save(context.Background(), user.User{Email: "test@test", Password: "123", Type: "USER"})
+	userID, _ := s.Save(context.Background(), user.User{Email: "test@test", Password: "Abc123@", Type: "USER"})
 	tests := []struct {
 		name    string
 		want    string
@@ -28,12 +28,12 @@ func TestService_Login(t *testing.T) {
 	}{
 		{
 			name:    "should login and generate a valid token",
-			login:   user.LoginUser{Email: "test@test", Password: "123"},
+			login:   user.LoginUser{Email: "test@test", Password: "Abc123@"},
 			wantErr: false,
 		},
 		{
 			name:    "should fail at login",
-			login:   user.LoginUser{Email: "wrongtest@test", Password: "123"},
+			login:   user.LoginUser{Email: "wrongtest@test", Password: "Abc123@"},
 			wantErr: true,
 		},
 	}
